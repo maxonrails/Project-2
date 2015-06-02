@@ -1,0 +1,8 @@
+
+<% @users.each do |user| %>
+<%= user.username %><br>
+<%= user.created_at.strftime ("%b %d, %Y")  %><br>
+<%= image_tag user.image.url(:med) %><br>
+
+<%= link_to "More info", user_path(user) %><br><br>
+<% end %>

@@ -1,0 +1,17 @@
+<%= form_for @post do |f| %>
+
+<div>
+     <%= f.label :title %>
+     <%= f.text_field :title %>
+</div>
+
+<div>
+    <%= f.label :body %>
+    <%= f.text_field :body %>
+</div>
+
+
+ <%= f.submit "Add new post" %>
+<% end %>
+
+<%= link_to "Back to the list!", posts_path %>

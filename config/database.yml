@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+
+development:
+  <<: *default
+  database: project2_development
+
+test:
+  <<: *default
+  database: project2_test
+
+production:
+  <<: *default
+  database: project2_production
+  username: Yo
+  password: <%= ENV['project2'] %>

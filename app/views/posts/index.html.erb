@@ -1,0 +1,11 @@
+<hr>
+<% @posts.each do |post| %>
+<%= post.title %><br>
+<%= post.body %><br>
+
+
+Posted by: <%= User.find(post.user_id).username %><br>
+<%= post.created_at.strftime ("%b %d, %Y")  %><br>
+<%= link_to "More info", post_path(post) %><br><br>
+<hr>
+<% end %>
