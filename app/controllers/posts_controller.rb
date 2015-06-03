@@ -4,7 +4,7 @@ def index
   end
 
   def show
-  @post = Post.find(params[:id])
+  @post = get_post
   end
 
   def new
@@ -22,29 +22,37 @@ def index
   end
 
   def edit
-  @post = Post.find(params[:id]) 
+  @post = Post.find(params[:id])
+  @user = Post.find(params[:id]).user_id
+    unless @post.user.id == current_user.id 
+      redirect_to user_path(@user)
+    end
   end
 
   def update
-  @post = Post.find(params[:id])
-    if @post.update_attributes(post_params)
-        redirect_to posts_path
-    else
-        render :edit
+  @post = get_post
+  @user = get_post.user_id
+    
+      if @post.update_attributes(post_params) 
+          redirect_to user_path(@user)
+      else
+          render :edit
       end
-    end
+   
+  end
 
-    def destroy
-    @post = Post.find(params[:id]) 
+  def destroy
+    @post = get_post
+    @user = get_post.user_id
     @post.destroy
-    redirect_to posts_path 
-    end
+    redirect_to user_path(@user)
+  end
 
 
 end
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_post
+    def get_post
       @post = Post.find(params[:id])
     end
     # Never trust parameters from the scary internet, only allow the white list through.

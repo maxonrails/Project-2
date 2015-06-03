@@ -9,7 +9,7 @@
     <%= f.label :body %>
     <%= f.text_field :body %>
 </div>
-
+<%= f.collection_check_boxes :item_ids, Item.all, :id, :name %>
 
  <%= f.submit "Add new post" %>
 <% end %>

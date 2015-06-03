@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
 	has_secure_password
 	validates_uniqueness_of :username, case_sensitive: false
 	validates :username, presence: true, length: { minimum: 2, maximum: 25 }
-	has_attached_file :image, styles: { small: "64x64", med: "100x100", large: "200x200" }
+	has_attached_file :image, styles: {small: "50x50", med: "100x100", large: "200x200" }
 	validates_attachment_content_type :image, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 	
 end

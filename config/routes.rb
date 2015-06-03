@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+ 
   get 'static/home'
 
   get 'static/about'
@@ -8,40 +9,44 @@ Rails.application.routes.draw do
 
   root 'static#home'
 
+
   get "users/" => "users#index"
-  get "choices/" => "choices#index"
+  get "items/" => "items#index"
   get "posts/" => "posts#index"
   get "votes/" => "votes#index"
 
   get "users/new" => "users#new"
-  get "choices/new" => "choices#new", as: :new_choice
+  get "items/new" => "items#new", as: :new_item
   get "posts/new" => "posts#new", as: :new_post
   get "votes/new" => "votes#new", as: :new_vote
   get "login" => "sessions#new"
 
   get "users/:id" => "users#show", as: :user
-  get "choices/:id" => "choices#show", as: :choice
+  get "items/:id" => "items#show", as: :item
   get "posts/:id" => "posts#show", as: :post
   get "votes/:id" => "votes#show", as: :vote
 
   post "users/" => "users#create"
-  post "choices/" => "choices#create"
+  post "items/" => "items#create"
   post "posts/" => "posts#create"
   post "votes/" => "votes#create"
   post "login" => "sessions#create"
 
 
   get "users/:id/edit" => "users#edit", as: :edit_user
-  get "choices/:id/edit" => "choices#edit", as: :edit_choice
+  get "items/:id/edit" => "items#edit", as: :edit_item
   get "posts/:id/edit" => "posts#edit", as: :edit_post
   get "votes/:id/edit" => "votes#edit", as: :edit_vote
 
   patch "users/:id" => "users#update"
-  patch "choices/:id" => "choices#update"
+  patch "items/:id" => "items#update"
   patch "posts/:id" => "posts#update"
   patch "votes/:id" => "votes#update"
 
   delete "logout" => "sessions#destroy"
+  delete "posts/:id" => "posts#destroy", as: :delete_post
+
+  resources :posts
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

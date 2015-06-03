@@ -9,15 +9,26 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<div class='col-md-12 userbar'>
 <% if current_user %>
 	<%= current_user.username %>
+	<%= image_tag current_user.image.url(:small) %>
+	<%= current_user.posts.count %> Posts
 	<%= link_to "Log out", logout_path, method: :delete %>
 <% else %>
-	<%= link_to "Sign-up", users_new_path %>
-	<%= link_to "Log-in", login_path %>
+	<%= form_for(:session, url:login_path) do |f| %>
+		<%=f.label :username %>
+		<%=f.text_field :username %>
+		<%=f.label :password %>
+		<%=f.password_field :password %>
+		<%=f.submit "Log in" %>
+		<%= link_to "Sign-up", users_new_path %>
+	<%end%>
 <% end %>
-<hr>
-<%= yield %>
+</div>
+<br><br><hr>
+	<%= yield %>
 <hr>
 <%= params %>
 <hr>

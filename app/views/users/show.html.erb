@@ -1,11 +1,15 @@
 <div class='col-md-8'>
 <h4>Recent Posts</h4>
 <hr>
-<%# @user.posts.each do |post| %>
-<h2><%#= post.title %></h2>
-<h3><%#= post.comment %></h3>
+<% @user.posts.each do |post| %>
+<h2><%= post.title %></h2>
+<h3><%= post.body %></h3>
+	<% if post.user_id == current_user.id %>
+		<%= link_to "edit", edit_post_path(post.id) %>
+		<%= link_to "delete", delete_post_path(post.id), method: :delete, data: { confirm: "Are you sure you want to delete this post?"} %>
+	<% end %>
 <hr>
-<%# end %>
+<% end %>
 
 </div>
 <div class='col-md-4'>

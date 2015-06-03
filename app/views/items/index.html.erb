@@ -1,0 +1,12 @@
+<hr>
+<% @items.each do |item| %>
+Product name: <%= item.name %><br>
+Category: <%= item.category %><br>
+Price: <%= item.price %><br>
+Id: <%= item.id %><br>
+
+<%= item.created_at.strftime ("%b %d, %Y")  %><br>
+<hr>
+<% end %>
+<%= link_to "New Item", new_item_path %>
+
