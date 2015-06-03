@@ -9,8 +9,10 @@
     <%= f.label :body %>
     <%= f.text_field :body %>
 </div>
-
-
+    What to compare:<br>
+  <%= f.collection_check_boxes :item_ids, Item.all, :id, :name %>
+  <br><br>
+  
  <%= f.submit "Edit post" %>
 <% end %>
 

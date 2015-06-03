@@ -9,6 +9,7 @@ class ItemsController < ApplicationController
   
   def new
     @item = Item.new
+    @posts = Post.all
   end
 
   
@@ -22,7 +23,8 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    @item = Item.find(params[:id]) 
+    @item = Item.find(params[:id])
+    @posts =Post.all 
   end
 
   def update
@@ -43,6 +45,6 @@ class ItemsController < ApplicationController
 private
 
   def item_params
-    params.require(:item).permit(:name, :category, :price)
+    params.require(:item).permit(:name, :category, :price,:post_ids => [])
   end
 end

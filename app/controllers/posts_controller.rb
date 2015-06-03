@@ -9,11 +9,13 @@ def index
 
   def new
   @post = Post.new
+  @items = Item.all 
   end
 
   def create
   @post = Post.new(post_params)
   @post.user_id = current_user.id
+
     if @post.save
         redirect_to posts_path
     else
@@ -23,6 +25,7 @@ def index
 
   def edit
   @post = get_post
+  @items = Item.all 
   @user = get_post.user_id
     unless @user == current_user.id 
       redirect_to user_path(@user)
@@ -56,6 +59,6 @@ def index
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :body)
+      params.require(:post).permit(:user_id, :title, :body,:item_ids => [])
     end
 end 
