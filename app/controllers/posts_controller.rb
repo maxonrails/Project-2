@@ -22,9 +22,9 @@ def index
   end
 
   def edit
-  @post = Post.find(params[:id])
-  @user = Post.find(params[:id]).user_id
-    unless @post.user.id == current_user.id 
+  @post = get_post
+  @user = get_post.user_id
+    unless @user == current_user.id 
       redirect_to user_path(@user)
     end
   end
@@ -32,24 +32,23 @@ def index
   def update
   @post = get_post
   @user = get_post.user_id
-    
+
       if @post.update_attributes(post_params) 
           redirect_to user_path(@user)
       else
           render :edit
       end
-   
   end
 
   def destroy
     @post = get_post
     @user = get_post.user_id
-    @post.destroy
+      if @user == current_user.id
+        @post.destroy
+      end
     redirect_to user_path(@user)
   end
 
-
-end
   private
     # Use callbacks to share common setup or constraints between actions.
     def get_post
@@ -59,3 +58,4 @@ end
     def post_params
       params.require(:post).permit(:user_id, :title, :body)
     end
+end 

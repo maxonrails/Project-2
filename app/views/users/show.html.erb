@@ -21,7 +21,12 @@
 	<br>
 	Voted Given: <%#= @user.votes.count %>
 	<br>
+	<% if current_user.id == @user.id %>
+		<%= link_to "Delete this user", user_path, method: :delete, data: { confirm: "Are you sure you want to delete this user?"},class: 'btn btn-danger btn-xs' %>
+	<% end %>
+	<br>
+	<hr>
+	<hr>
+	<%= link_to "Create a new post", new_post_path, class: 'btn btn-info btn-lg' %>
 </div>
-<%= link_to "Delete this user", user_path, method: :delete, data: { confirm: "Are you sure you want to delete this user?"} %>
-<br>
-<%= link_to "Back to the list!", users_path %>
+
