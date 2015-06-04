@@ -5,6 +5,7 @@ def index
 
   def show
   @post = get_post
+  @votes = Vote.all
   end
 
   def new
@@ -27,9 +28,9 @@ def index
   @post = get_post
   @items = Item.all 
   @user = get_post.user_id
-    unless @user == current_user.id 
+    unless current_user && @user == current_user.id
       redirect_to user_path(@user)
-    end
+    end 
   end
 
   def update
@@ -50,6 +51,12 @@ def index
         @post.destroy
       end
     redirect_to user_path(@user)
+  end
+
+  def vote
+  @post = Post.find(params[:id])
+  @post.votes.create
+  redirect_to(posts_path)
   end
 
   private

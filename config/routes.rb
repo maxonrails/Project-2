@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
- 
   get 'static/home'
 
   get 'static/about'
@@ -13,18 +12,16 @@ Rails.application.routes.draw do
   get "users/" => "users#index"
   get "items/" => "items#index"
   get "posts/" => "posts#index"
-  get "votes/" => "votes#index"
 
   get "users/new" => "users#new"
   get "items/new" => "items#new", as: :new_item
   get "posts/new" => "posts#new", as: :new_post
-  get "votes/new" => "votes#new", as: :new_vote
   get "login" => "sessions#new"
 
   get "users/:id" => "users#show", as: :user
   get "items/:id" => "items#show", as: :item
   get "posts/:id" => "posts#show", as: :post
-  get "votes/:id" => "votes#show", as: :vote
+  
 
   post "users/" => "users#create"
   post "items/" => "items#create"
@@ -32,11 +29,9 @@ Rails.application.routes.draw do
   post "votes/" => "votes#create"
   post "login" => "sessions#create"
 
-
   get "users/:id/edit" => "users#edit", as: :edit_user
   get "items/:id/edit" => "items#edit", as: :edit_item
   get "posts/:id/edit" => "posts#edit", as: :edit_post
-  get "votes/:id/edit" => "votes#edit", as: :edit_vote
 
   patch "users/:id" => "users#update"
   patch "items/:id" => "items#update"
@@ -46,6 +41,7 @@ Rails.application.routes.draw do
   delete "logout" => "sessions#destroy"
   delete "posts/:id" => "posts#destroy", as: :delete_post
   delete "users/:id" => "users#destroy", as: :delete_user
+  delete "votes/:id" => "votes#destroy", as: :delete_vote
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

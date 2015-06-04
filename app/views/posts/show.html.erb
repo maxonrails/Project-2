@@ -2,6 +2,9 @@ Title: <%= @post.title %><br>
 Body: <%= @post.body %><br>
 
 Choices: <% @post.post_items.each do |post_item| %>
-<%= post_item.item.name %>
+
+<%= post_item.votes.count %>
+
+<%= link_to post_item.item.name,post_path,class: 'btn btn-info btn-xs' %>
 
 <% end %>
