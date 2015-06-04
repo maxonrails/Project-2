@@ -43,8 +43,6 @@ gem 'unicorn'
 group :development, :test do
 gem 'rails_12factor', group: :production
 
-
-
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
 
