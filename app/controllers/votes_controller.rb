@@ -18,5 +18,6 @@ class VotesController < ApplicationController
 private
 	def vote_params
 		params.require(:vote).permit(:post_item_id, :user_id)
+	end
 
 end
