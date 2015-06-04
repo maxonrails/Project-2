@@ -2,5 +2,6 @@ Title: <%= @post.title %><br>
 Body: <%= @post.body %><br>
 
 Choices: <% @post.post_items.each do |post_item| %>
-<%= post_item.item_id %>
+<%= post_item.item.name %>
+
 <% end %>
