@@ -1,2 +1,6 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+Title: <%= @post.title %><br>
+Body: <%= @post.body %><br>
+
+Choices: <% @post.post_items.each do |post_item| %>
+<%= post_item.item_id %>
+<% end %>
