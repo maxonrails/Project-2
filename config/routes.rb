@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'static/contact'
 
-  root 'static#home'
+  root 'users#index'
 
 
   get "users/" => "users#index"
