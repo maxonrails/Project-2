@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get 'static/contact'
 
   root 'users#index'
+  get '/tests' => 'tests#index'
+  get '/search' => 'tests#search', as: :search_items
 
 
   get "users/" => "users#index"

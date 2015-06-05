@@ -3,6 +3,7 @@
 <hr>
 <% @user.posts.each do |post| %>
 <h2><%= link_to post.title, post_path(post.id) %></h2>
+<h6>Submitted <%= post.created_at.strftime ("%b %d, %Y") %></h6>
 <h3><%= post.body %></h3>
 	<% if current_user !=nil && post.user_id == current_user.id %>
 		<%= link_to "edit", edit_post_path(post.id) %>

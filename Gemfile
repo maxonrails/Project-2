@@ -34,6 +34,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'bcrypt', '~> 3.1.7'
 
 gem 'paperclip'
+
+# Enables Amazon product search API in Ruby. 
+gem 'vacuum', '~> 1.3.0'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
