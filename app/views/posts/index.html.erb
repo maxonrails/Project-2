@@ -1,11 +1,30 @@
 <hr>
-<% @posts.each do |post| %>
-<%= post.title %><br>
-<%= post.body %><br>
+  <div class="col-md-2 col-md-offset-4">
+    <%= link_to new_post_path, remote: true do %>
+      <button class="btn btn-default">New</button>
+    <% end %>
+  </div>
+<div class="row">
+  <div class="col-md-6 col-md-offset-2" id="post-form" style="display:none;">
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-7 col-md-offset-1" id="posts">
+	  <%= render @posts %>
+  </div>
+</div>
 
 
-Posted by: <%= User.find(post.user_id).username %><br>
-<%= post.created_at.strftime ("%b %d, %Y")  %><br>
-<%= link_to "More info", post_path(post) %><br><br>
+<%# @posts.each do |post| %>
+<%#= post.title %><br>
+<%#= post.body %><br>
+
+
+Posted by: <%#= User.find(post.user_id).username %><br>
+<%#= post.created_at.strftime ("%b %d, %Y")  %><br>
+<%#= link_to "More info", post_path(post) %><br><br>
 <hr>
-<% end %>
+<%# end %>
+
+

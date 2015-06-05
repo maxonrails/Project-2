@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   get "users/new" => "users#new"
   get "items/new" => "items#new", as: :new_item
   get "posts/new" => "posts#new", as: :new_post
+  get "votes/" => "votes#create"
   get "login" => "sessions#new"
 
   get "users/:id" => "users#show", as: :user

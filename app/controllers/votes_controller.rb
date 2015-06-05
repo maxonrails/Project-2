@@ -1,11 +1,12 @@
 class VotesController < ApplicationController
   def create
-  	vote = Vote.new(vote_params)
-	vote.user = current_user
-	post_items = Post_items.find(params[:post_items_id])
-	vote.post_items = post_items
-	vote.save
-	render :new
+  	if current_user.votes.where(:post_item_id =>params[:post_item_id]).count == 0
+	  	@vote = Vote.create(:user_id => current_user.id, :post_item_id =>params[:post_item_id])
+		@vote.save
+		redirect_to posts_path
+	else 
+		render :show
+	end
 
   end
 
