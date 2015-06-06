@@ -1,17 +1,28 @@
-<%= form_tag test_index_path, method: :get do |f| %>
-	<%= text_field_tag :search, nil, placeholder: 'search' %>
-	<%= submit_tag "Search" %>
-<% end %>
+<%= render 'search' %>
 
 
 <h1>Products from the Amazon API</h1>
 
 
 <% if @products.any? %>
-  <% @products.each do |product| %>
-    <div class="product">
-      <%= link_to image_tag(product.image_url), product.url %>
-      <%= link_to product.name, product.url %>
-    </div>
+	<%= form_tag("/posts", method: "post") do %>
+	<div>
+     <%= text_field_tag 'Title', :title %>
+	</div>
+
+	<div>
+    <%= text_field_tag 'Body', :body %>
+	</div>
+	<%= button_tag "Submit" %>
+	  <% @products.each do |product| %>
+	    <div class="product">
+	    	<%= check_box_tag "asins[]", product.asin %>
+	      <%= link_to image_tag(product.image_url), product.url %>
+	      <%= link_to product.name, product.url %>
+	      <%= product.asin %>
+
+	    </div>
+	  <% end %>
   <% end %>
+
 <% end %>	

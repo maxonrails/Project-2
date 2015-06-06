@@ -28,6 +28,7 @@ class TestsController < ApplicationController
 	      product.name = item['ItemAttributes']['Title']
 	      product.url = item['DetailPageURL']
 	      product.image_url = item['SmallImage']['URL']
+	      product.asin = item['ASIN']
 	      
 	      @products << product 
 	    end

@@ -43,12 +43,14 @@ gem 'vacuum', '~> 1.3.0'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-
-group :development, :test do
 gem 'rails_12factor', group: :production
 
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
+group :development, :test do
+
+
+  gem 'pry-rails'
+  gem 'pry-stack_explorer'
+  gem 'pry-byebug'
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
