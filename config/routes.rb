@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'static/contact'
 
   root 'users#index'
-  get '/tests' => 'tests#index'
+  get '/tests' => 'tests#index', as: :test_index
   get '/search' => 'tests#search', as: :search_items
 
 

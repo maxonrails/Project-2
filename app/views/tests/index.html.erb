@@ -1,3 +1,9 @@
+<%= form_tag test_index_path, method: :get do |f| %>
+	<%= text_field_tag :search, nil, placeholder: 'search' %>
+	<%= submit_tag "Search" %>
+<% end %>
+
+
 <h1>Products from the Amazon API</h1>
 
 
