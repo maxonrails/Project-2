@@ -28,7 +28,7 @@ Rails.application.routes.draw do
 
   post "users/" => "users#create"
   post "items/" => "items#create"
-  post "posts/" => "posts#create"
+  post "posts/" => "posts#createpostitem"
   post "votes/" => "votes#create"
   post "login" => "sessions#create"
 

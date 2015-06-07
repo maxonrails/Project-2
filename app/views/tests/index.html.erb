@@ -7,11 +7,11 @@
 <% if @products.any? %>
 	<%= form_tag("/posts", method: "post") do %>
 	<div>
-     <%= text_field_tag 'Title', :title %>
+     <%= text_field_tag :title %>
 	</div>
 
 	<div>
-    <%= text_field_tag 'Body', :body %>
+    <%= text_field_tag :body %>
 	</div>
 	<%= button_tag "Submit" %>
 	  <% @products.each do |product| %>

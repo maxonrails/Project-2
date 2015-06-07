@@ -15,19 +15,32 @@ respond_to :html, :js
     @items = Item.all 
   end
 
-  def create
-    require "pry"
-    binding.pry
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
+  def createpostitem
+    
+    @post = Post.create(title: params[:title], body: params[:body])
+    params[:asins].each do |item|
+      @post.items.build(name: "Asin #" + item, price: 10)
+    end
 
+    if @post.save
+      redirect_to post_path(@post)
+    end
 
-      if @post.save
-          redirect_to posts_path
-      else
-        render :new
-      end
   end
+
+  # def create
+  #   require "pry"
+  #   binding.pry
+  #   @post = Post.new(post_params)
+  #   @post.user_id = current_user.id
+
+
+  #     if @post.save
+  #         redirect_to posts_path
+  #     else
+  #       render :new
+  #     end
+  # end
 
   def edit
     @post = get_post
@@ -65,6 +78,6 @@ respond_to :html, :js
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def post_params
-      params.require(:post).permit(:user_id, :title, :body,:item_ids => [])
+      params.require(:post).permit(:user_id, :title, :body,:items => [])
     end
 end 
