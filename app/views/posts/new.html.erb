@@ -4,17 +4,21 @@
 <!-- If the product array isnt blank, produce form tags for title and body and along with results from Amazon -->
 <% if @products != nil %>
 	<%= form_tag("/posts", method: "post") do %>
-	<div>
-     <%= text_field_tag :title %>
-	</div>
+	
+		<div>
+    		<%= text_field_tag :title %>
+		</div>
 
-	<div>
-    <%= text_field_tag :body %>
-	</div>
-	<%= button_tag "Submit"  %>
+		<div>
+   			<%= text_field_tag :body %>
+		</div>
+
+		<%= button_tag "Submit" %>
+
 <h1>Products from the Amazon API</h1>
 <!-- Iterates over the products array and returns a checkbox which holds all of the item's attributes as a value, also returns image and product title(name) -->
 	  <% @products.each do |product| %>
+
 	    <div class="product col-md-3">
 <!-- There is a bug here. value = product turns product into a string instead of a hash. -->
 	    Compare: <%= check_box_tag name = "products", value = product, checked = false, class: "checkbox-warning" %><br>
@@ -22,10 +26,8 @@
 	      <br>
 	      <%= link_to product['ItemAttributes']['Title'], product['DetailPageURL'] %>
 	    </div>
-	  <% end %>
+
+	  <% end %>  
   <% end %>
-
 <% end %>	
-
-
 <%= link_to "Back to the list!", posts_path %>
