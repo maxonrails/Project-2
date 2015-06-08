@@ -53,18 +53,18 @@ respond_to :html, :js
     # require "pry"
     # binding.pry
 
-  ## ITERATES OVER THE HASH
-    @checked.each do |product|
+  # ## ITERATES OVER THE HASH
+  #   @checked.each do |product|
 
-  ## ASSIGNS VARIABLES TO VALUES INSIDE OF THE HASHES
-      asin = product["ASIN"]
-      name = product['ItemAttributes']['Title']
-      url = product["DetailPageURL"]
-      image_url = product['SmallImage']['URL']
+  # ## ASSIGNS VARIABLES TO VALUES INSIDE OF THE HASHES
+  #     asin = product["ASIN"]
+  #     name = product['ItemAttributes']['Title']
+  #     url = product["DetailPageURL"]
+  #     image_url = product['SmallImage']['URL']
 
-  ## BUILDS ITEMS (USING THE ASSOCIATION BETWEEN POSTS AND ITEMS) 
-      @post.items.build(name: name, url: url, image_url: image_url, asin: asin)
-    end
+  # ## BUILDS ITEMS (USING THE ASSOCIATION BETWEEN POSTS AND ITEMS) 
+  #     @post.items.build(name: name, url: url, image_url: image_url, asin: asin)
+  #   end
     
   ## REDIRECTS TO THE NEWLY CREATED POST
     redirect_to post_path(@post)
