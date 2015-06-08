@@ -1,10 +1,11 @@
-
+<!-- Iterates over the post#index and returns title, body, who it was psoted by, and when. -->
 <% @posts.each do |post| %>
 <%= post.title %><br>
 <%= post.body %><br>
 
+<!-- Some unattributed posts due to testing so this is commented out right now.
+Posted by: <%#= User.find(post.user_id).username %><br> -->
 
-Posted by: <%= User.find(post.user_id).username %><br>
 <%= post.created_at.strftime ("%b %d, %Y")  %><br>
 <%= link_to "More info", post_path(post) %><br><br>
 <hr>

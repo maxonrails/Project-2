@@ -1,19 +1,21 @@
+<!-- This page will be changed drastically once the bug on post#new is fixed. Will be similar to the show page.
+ -->
 <%= form_for @post do |f| %>
 
-<div>
-     <%= f.label :title %>
-     <%= f.text_field :title %>
-</div>
+	<div>
+		<%= f.label :title %>
+		<%= f.text_field :title %>
+	</div>
 
-<div>
-    <%= f.label :body %>
-    <%= f.text_field :body %>
-</div>
-    What to compare:<br>
-  <%= f.collection_check_boxes :item_ids, Item.all, :id, :name %>
-  <br><br>
-  
- <%= f.submit "Edit post" %>
+	<div>
+		<%= f.label :body %>
+		<%= f.text_field :body %>
+	</div>
+		What to compare:<br>
+	  <%= f.collection_check_boxes :item_ids, Item.all, :id, :name %>
+	  <br><br>
+	  
+	<%= f.submit "Edit post" %>
 <% end %>
 
 <%= link_to "Back to the list!", posts_path %>
