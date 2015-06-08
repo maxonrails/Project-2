@@ -46,6 +46,8 @@ Rails.application.routes.draw do
   delete "users/:id" => "users#destroy", as: :delete_user
   delete "votes/:id" => "votes#destroy", as: :delete_vote
 
+  resources :posts, :defaults => { :format => 'json'}
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

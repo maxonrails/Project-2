@@ -2,23 +2,26 @@ class PostsController < ApplicationController
 respond_to :html, :js
 
 
-
+  ## SHOWS ALL POSTS
   def index
     @posts = Post.all 
   end
 
+
+  ## SHOWS ONE POST
   def show
     @post = get_post
     @votes = Vote.all
   end
 
+  ##SUBMITS A QUERY TO AMAZON AND RETURN A HASH OF 10 ITEMS 
   def new
     @post = Post.new
     @items = Item.all
     @keyword = params[:search]
-
+  ## VACUUM IS THE GEM USED FOR AMAZON SEARCH API IN RUBY
       request = Vacuum.new('US')
-      
+  ## AWS CONFIGURATION. ASSOCIATE_TAG IS A REFERRAL ID IN THE INSTANCE SOMEONE USES MY LINKS 
       request.configure(
       aws_access_key_id: ENV['aws_access_key_id'],
       aws_secret_access_key: ENV['aws_secret_access_key'],
@@ -30,59 +33,45 @@ respond_to :html, :js
         'Keywords'=> @keyword,
         'ResponseGroup' => "ItemAttributes,Images"
       }
-   
+  ## DEFINES THE REQUEST RETURN
       raw_products = request.item_search(query: params)
       hashed_products = raw_products.to_h
-   
+  ## PUTS SPECIFICS OF HASHED SEARCH RESPONSE INTO AN ARRAY
       @products = hashed_products['ItemSearchResponse']['Items']['Item']
     
-
-      # hashed_products['ItemSearchResponse']['Items']['Item'].each do |item|
-      #   product = OpenStruct.new
-      #   product.name = item['ItemAttributes']['Title']
-      #   product.url = item['DetailPageURL']
-      #   product.image_url = item['MediumImage']['URL']
-      #   product.asin = item['ASIN']
-      #   @products << product 
-      # end
   end
-
+  ## THIS ACTION CREATES A POST, ITEMS THAT ARE ASSOCIATED WITH THE POST, AND THE POSTITEM ENTRY.
   def createpostitem
-   
+    
+  ## CREATES A NEW POST WITH THE TITLE TEXXT AND BODY TEXT IN THE NEW POST PAGE ONCE THE SUBMIT BUTTON IS PRESSED 
     @post = Post.create(title: params[:title], body: params[:body], user_id: current_user.id)
+  
+  ## CREATES AN INSTANCE VARIABLE FOR THE VALUE INSIDE OF THE CHECKBOXES    
     @checked = params[:products]
-    require "pry"
-    binding.pry
-    @checked.each.as_json do |product|
 
-    asin = product["ASIN"]
-    name = product['ItemAttributes']['Title']
-    url = product["DetailPageURL"]
-    image_url = product['SmallImage']['URL']
+    # @checked = params[:products]
+    # require "pry"
+    # binding.pry
 
-    @post.items.build(name: name, url: url, image_url: image_url, asin: asin)
-      # end
+  ## ITERATES OVER THE HASH
+    @checked.each do |product|
+
+  ## ASSIGNS VARIABLES TO VALUES INSIDE OF THE HASHES
+      asin = product["ASIN"]
+      name = product['ItemAttributes']['Title']
+      url = product["DetailPageURL"]
+      image_url = product['SmallImage']['URL']
+
+  ## BUILDS ITEMS (USING THE ASSOCIATION BETWEEN POSTS AND ITEMS) 
+      @post.items.build(name: name, url: url, image_url: image_url, asin: asin)
     end
-
-    if @post.save
-      redirect_to post_path(@post)
-    end
+    
+  ## REDIRECTS TO THE NEWLY CREATED POST
+    redirect_to post_path(@post)
 
   end
 
-  # def create
-
-  #   @post = Post.new(post_params)
-  #   @post.user_id = current_user.id
-
-
-  #     if @post.save
-  #         redirect_to posts_path
-  #     else
-  #       render :new
-  #     end
-  # end
-
+  ## EDITS THE POST
   def edit
     @post = get_post
     @items = Item.all 
@@ -92,6 +81,7 @@ respond_to :html, :js
       end 
   end
 
+  ## UPDATES THE POST
   def update
     @post = get_post
     @user = get_post.user_id
@@ -103,6 +93,7 @@ respond_to :html, :js
       end
   end
 
+  ## DESTROYS THE POST
   def destroy
     @post = get_post
     @user = get_post.user_id
@@ -112,13 +103,14 @@ respond_to :html, :js
     redirect_to user_path(@user)
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def get_post
-      @post = Post.find(params[:id])
-    end
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def post_params
-      params.require(:post).permit(:user_id, :title, :body,:items => [])
-    end
+private
+    ##CALLBACK THAT REDUCES REDUNDANCY OF CODE
+  def get_post
+    @post = Post.find(params[:id])
+  end
+    
+  ## POST PARAMS. NOTE THE ITEMS => [] IS NEEDED IN A MANY TO MANY RELATIONSHIP WITH A THROUGH TABLE.
+  def post_params
+    params.require(:post).permit(:user_id, :title, :body,:items => [])
+  end
 end 
