@@ -2,12 +2,9 @@ class VotesController < ApplicationController
   def create
   	if current_user.votes.where(:post_item_id =>params[:post_item_id]).count == 0
 	  	@vote = Vote.create(:user_id => current_user.id, :post_item_id =>params[:post_item_id])
-		@vote.save
-		redirect_to posts_path
-	else 
-		render :show
-	end
 
+	end
+	redirect_to posts_path()
   end
 
   def update

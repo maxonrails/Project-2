@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
 respond_to :html, :js
 
+
+
   def index
     @posts = Post.all 
   end
@@ -12,14 +14,54 @@ respond_to :html, :js
 
   def new
     @post = Post.new
-    @items = Item.all 
+    @items = Item.all
+    @keyword = params[:search]
+
+      request = Vacuum.new('US')
+      
+      request.configure(
+      aws_access_key_id: ENV['aws_access_key_id'],
+      aws_secret_access_key: ENV['aws_secret_access_key'],
+      associate_tag: ENV['associate_tag']
+      )
+      
+      params = {
+        'SearchIndex' => 'All',
+        'Keywords'=> @keyword,
+        'ResponseGroup' => "ItemAttributes,Images"
+      }
+   
+      raw_products = request.item_search(query: params)
+      hashed_products = raw_products.to_h
+   
+      @products = hashed_products['ItemSearchResponse']['Items']['Item']
+    
+
+      # hashed_products['ItemSearchResponse']['Items']['Item'].each do |item|
+      #   product = OpenStruct.new
+      #   product.name = item['ItemAttributes']['Title']
+      #   product.url = item['DetailPageURL']
+      #   product.image_url = item['MediumImage']['URL']
+      #   product.asin = item['ASIN']
+      #   @products << product 
+      # end
   end
 
   def createpostitem
-    
-    @post = Post.create(title: params[:title], body: params[:body])
-    params[:asins].each do |item|
-      @post.items.build(name: "Asin #" + item, price: 10)
+   
+    @post = Post.create(title: params[:title], body: params[:body], user_id: current_user.id)
+    @checked = params[:products]
+    require "pry"
+    binding.pry
+    @checked.each.as_json do |product|
+
+    asin = product["ASIN"]
+    name = product['ItemAttributes']['Title']
+    url = product["DetailPageURL"]
+    image_url = product['SmallImage']['URL']
+
+    @post.items.build(name: name, url: url, image_url: image_url, asin: asin)
+      # end
     end
 
     if @post.save
@@ -29,8 +71,7 @@ respond_to :html, :js
   end
 
   # def create
-  #   require "pry"
-  #   binding.pry
+
   #   @post = Post.new(post_params)
   #   @post.user_id = current_user.id
 

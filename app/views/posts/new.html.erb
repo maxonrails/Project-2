@@ -1,19 +1,27 @@
+<%= render 'search' %>
 
+<% if @products != nil %>
+	<%= form_tag("/posts", method: "post") do %>
+	<div>
+     <%= text_field_tag :title %>
+	</div>
 
-<%= form_for @post do |f| %>
+	<div>
+    <%= text_field_tag :body %>
+	</div>
+	<%= button_tag "Submit"  %>
+<h1>Products from the Amazon API</h1>
+	  <% @products.each do |product| %>
+	    <div class="product col-md-3">
+	    Compare: <%= check_box_tag name = "products", value = product, checked = false, class: "checkbox-warning" %><br>
+	      <%= link_to image_tag(product['MediumImage']['URL']), product['DetailPageURL'] %>
+	      <br>
+	      <%= link_to product['ItemAttributes']['Title'], product['DetailPageURL'] %>
+	    </div>
+	  <% end %>
+  <% end %>
 
-<div>
-     <%= f.label :title %>
-     <%= f.text_field :title %>
-</div>
+<% end %>	
 
-<div>
-    <%= f.label :body %>
-    <%= f.text_field :body %>
-</div>
-<%= f.collection_check_boxes :item_ids, Item.all, :id, :name %>
-
- <%= f.submit "Add new post" %>
-<% end %>
 
 <%= link_to "Back to the list!", posts_path %>

@@ -1,10 +1,10 @@
 <%= render 'search' %>
 
 
-<h1>Products from the Amazon API</h1>
 
 
-<% if @products.any? %>
+
+<% if @products != nil %>
 	<%= form_tag("/posts", method: "post") do %>
 	<div>
      <%= text_field_tag :title %>
@@ -13,13 +13,17 @@
 	<div>
     <%= text_field_tag :body %>
 	</div>
-	<%= button_tag "Submit" %>
+	<%= button_tag "Submit"  %>
+<h1>Products from the Amazon API</h1>
 	  <% @products.each do |product| %>
-	    <div class="product">
-	    	<%= check_box_tag "asins[]", product.asin %>
+	    <div class="product col-md-3">
+	    	Compare: <%= check_box_tag "asins[]", product.asin %><br>
 	      <%= link_to image_tag(product.image_url), product.url %>
+	      <br>
 	      <%= link_to product.name, product.url %>
+	      
 	      <%= product.asin %>
+	      <%= product.price %>
 
 	    </div>
 	  <% end %>

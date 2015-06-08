@@ -21,16 +21,16 @@ class TestsController < ApplicationController
 	    raw_products = request.item_search(query: params)
 	    hashed_products = raw_products.to_h
 	 
-	    @products = []
-	    
+	    @products = [] 
 	    hashed_products['ItemSearchResponse']['Items']['Item'].each do |item|
-	      product = OpenStruct.new
-	      product.name = item['ItemAttributes']['Title']
-	      product.url = item['DetailPageURL']
-	      product.image_url = item['SmallImage']['URL']
-	      product.asin = item['ASIN']
+	      # product = OpenStruct.new
+	      # product.name = item['ItemAttributes']['Title']
+	      # product.url = item['DetailPageURL']
+	      # product.image_url = item['SmallImage']['URL']
+	      # product.asin = item['ASIN']
 	      
-	      @products << product 
+	      @products << item
+
 	    end
 	 end
 end
