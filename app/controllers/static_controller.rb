@@ -1,4 +1,6 @@
 class StaticController < ApplicationController
+  
+	##DEFINES HOME ABOUT AND CONTACT PAGES
   def home
   end
 
