@@ -21,7 +21,7 @@
 
 	    <div class="product col-md-3">
 <!-- There is a bug here. value = product turns product into a string instead of a hash. -->
-	    Compare: <%= check_box_tag name = "products", value = product, checked = false, class: "checkbox-warning" %><br>
+	    Compare: <%= check_box_tag name = "products[]",  value = product, checked = false, class: "checkbox-warning" %><br>
 	      <%= link_to image_tag(product['MediumImage']['URL']), product['DetailPageURL'] %>
 	      <br>
 	      <%= link_to product['ItemAttributes']['Title'], product['DetailPageURL'] %>

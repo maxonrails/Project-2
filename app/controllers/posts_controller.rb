@@ -48,23 +48,25 @@ respond_to :html, :js
   
   ## CREATES AN INSTANCE VARIABLE FOR THE VALUE INSIDE OF THE CHECKBOXES    
     @checked = params[:products]
+    
+    
+  ## ITERATES OVER THE ARRAY
+    @checked.each do |product|
 
-    # @checked = params[:products]
-    # require "pry"
-    # binding.pry
+  ## CHANGES RETURNED STRINGS TO HASHES
+    hashed = eval(product)
+    
+  ## ASSIGNS VARIABLES TO VALUES INSIDE OF THE HASHES
+      @asin = hashed["ASIN"]
+      @name = hashed['ItemAttributes']['Title']
+      @url = hashed["DetailPageURL"]
+      @image_url = hashed['SmallImage']['URL']
 
-  # ## ITERATES OVER THE HASH
-  #   @checked.each do |product|
+  ## BUILDS ITEMS (USING THE ASSOCIATION BETWEEN POSTS AND ITEMS) 
+      @post.items.build(name: @name, url: @url, image_url: @image_url, asin: @asin)
 
-  # ## ASSIGNS VARIABLES TO VALUES INSIDE OF THE HASHES
-  #     asin = product["ASIN"]
-  #     name = product['ItemAttributes']['Title']
-  #     url = product["DetailPageURL"]
-  #     image_url = product['SmallImage']['URL']
-
-  # ## BUILDS ITEMS (USING THE ASSOCIATION BETWEEN POSTS AND ITEMS) 
-  #     @post.items.build(name: name, url: url, image_url: image_url, asin: asin)
-  #   end
+      
+    end
     
   ## REDIRECTS TO THE NEWLY CREATED POST
     redirect_to post_path(@post)
