@@ -6,11 +6,11 @@
 	<%= form_tag("/posts", method: "post") do %>
 	
 		<div>
-    		<%= text_field_tag :title, nil, placeholder: 'Post Title',class="form-control"  %>
+    		<%= text_field_tag :title, nil, placeholder: 'Post Title' %>
 		</div>
 
 		<div>
-   			<%= text_field_tag :body, nil, placeholder: 'Post Body'  %>
+   			<%= text_field_tag :body, nil, placeholder: 'Post Body' %>
 		</div>
 
 		<%= button_tag "Submit" %>
@@ -20,7 +20,7 @@
 	  <% @products.each do |product| %>
 
 	    <div class="product col-md-3 itembox">
-<!-- There is a bug here. value = product turns product into a string instead of a hash. -->
+<!-- value = product turns product into a string. the string i then converted back into a hash in the controller. -->
 	    Compare: <%= check_box_tag name = "products[]",  value = product, checked = false, class: "checkbox-warning" %><br>
 	      <%= link_to image_tag(product['MediumImage']['URL']), product['DetailPageURL'] %>
 	      <br>
