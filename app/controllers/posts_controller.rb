@@ -63,7 +63,8 @@ respond_to :html, :js
       @image_url = hashed['SmallImage']['URL']
 
   ## BUILDS ITEMS (USING THE ASSOCIATION BETWEEN POSTS AND ITEMS) 
-      @post.items.build(name: @name, url: @url, image_url: @image_url, asin: @asin)
+      @post.items.create(name: @name, url: @url, image_url: @image_url, asin: @asin)
+
 
       
     end
