@@ -6,11 +6,11 @@
 	<%= form_tag("/posts", method: "post") do %>
 	
 		<div>
-    		<%= text_field_tag :title %>
+    		<%= text_field_tag :title, nil, placeholder: 'Post Title',class="form-control"  %>
 		</div>
 
 		<div>
-   			<%= text_field_tag :body %>
+   			<%= text_field_tag :body, nil, placeholder: 'Post Body'  %>
 		</div>
 
 		<%= button_tag "Submit" %>
@@ -19,7 +19,7 @@
 <!-- Iterates over the products array and returns a checkbox which holds all of the item's attributes as a value, also returns image and product title(name) -->
 	  <% @products.each do |product| %>
 
-	    <div class="product col-md-3">
+	    <div class="product col-md-3 itembox">
 <!-- There is a bug here. value = product turns product into a string instead of a hash. -->
 	    Compare: <%= check_box_tag name = "products[]",  value = product, checked = false, class: "checkbox-warning" %><br>
 	      <%= link_to image_tag(product['MediumImage']['URL']), product['DetailPageURL'] %>

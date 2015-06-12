@@ -1,12 +1,14 @@
 <!-- Shows the post's title and body, along with the number of votes per item and some other information. This page will change drasticall once the bug on the new.html is fixed. 
  -->
+<div class="col-md-8 postshowtitle">
 Title: <%= @post.title %><br>
+</div>
 Body: <%= @post.body %><br>
 
-Choices: <% @post.post_items.each do |post_item| %>
+<% @post.post_items.each do |post_item| %>
 
-	<%= post_item.votes.count %>
-
-	<%= link_to post_item.item.name,votes_path(:post_item_id => post_item.id, :user_id => current_user.id),class: 'btn btn-info btn-xs' %>
+	Votes:<%= post_item.votes.count %><br>
+	<%= link_to image_tag(post_item.item.image_url), post_item.item.url %><br>
+	<%= link_to post_item.item.name,votes_path(:post_item_id => post_item.id, :user_id => current_user.id),class: 'btn btn-info btn-xs' %><br>
 
 <% end %>
